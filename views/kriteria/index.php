@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\search\Kriteria */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Kriterias';
+$this->title = 'Kriteria';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kriteria-index">
