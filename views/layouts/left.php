@@ -39,7 +39,7 @@
                             ['label' => 'Kriteria', 'icon' => 'server', 'url' => ['/kriteria/index'],],
                         ]
                     ],
-                    ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
+                    /*['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
@@ -68,7 +68,7 @@
                                 ],
                             ],
                         ],
-                    ],
+                    ],*/
                 ],
             ]
         ) ?>

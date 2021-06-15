@@ -8,6 +8,7 @@ use app\models\search\SubKriteria as SubKriteriaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 /**
  * SubKriteriaController implements the CRUD actions for SubKriteria model.
@@ -65,6 +66,8 @@ class SubKriteriaController extends Controller
     public function actionCreate()
     {
         $model = new SubKriteria();
+        $modelSearch = new SubKriteriaSearch();
+        $listParent = ArrayHelper::map($modelSearch->getParents()->asArray()->all(), 'id_subkriteria', 'nama_subkriteria');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_subkriteria]);
@@ -72,6 +75,7 @@ class SubKriteriaController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'listParent' => $listParent
         ]);
     }
 
@@ -85,6 +89,8 @@ class SubKriteriaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelSearch = new SubKriteriaSearch();
+        $listParent = ArrayHelper::map($modelSearch->getParents()->asArray()->all(), 'id_subkriteria', 'nama_subkriteria');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_subkriteria]);
@@ -92,6 +98,7 @@ class SubKriteriaController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'listParent' => $listParent
         ]);
     }
 

@@ -9,12 +9,15 @@ use Yii;
  *
  * @property int $id_subkriteria
  * @property int|null $id_kriteria
+ * @property int|null $id_parent_subkriteria
  * @property string|null $nama_subkriteria
  * @property string|null $bobot
  * @property string|null $kode
  */
 class SubKriteria extends \yii\db\ActiveRecord
 {
+    public $is_parent;
+
     /**
      * {@inheritdoc}
      */
@@ -29,8 +32,13 @@ class SubKriteria extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_kriteria'], 'integer'],
-            [['nama_subkriteria', 'bobot', 'kode'], 'string', 'max' => 100],
+            [['id_kriteria', 'id_parent_subkriteria', 'is_parent'], 'integer'],
+            [['nama_subkriteria', 'bobot', 'nilai'], 'string', 'max' => 100],
+            ['id_parent_subkriteria', 'required', 'when' => function($model) {
+                return $model->is_parent == '2';
+            }, 'whenClient' => "function (attribute, value) {
+                return $('input:radio[name=\"SubKriteria[is_parent]\"]').val() == '2';
+            }"],
         ];
     }
 
@@ -42,9 +50,10 @@ class SubKriteria extends \yii\db\ActiveRecord
         return [
             'id_subkriteria' => 'Id Subkriteria',
             'id_kriteria' => 'Id Kriteria',
+            'id_parent_subkriteria' => 'Id Parent Subkriteria',
             'nama_subkriteria' => 'Nama Subkriteria',
             'bobot' => 'Bobot',
-            'kode' => 'Kode',
+            'nilai' => 'Nilai',
         ];
     }
 }

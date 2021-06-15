@@ -11,14 +11,15 @@ use app\models\SubKriteria as SubKriteriaModel;
  */
 class SubKriteria extends SubKriteriaModel
 {
+    public $is_parent;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id_subkriteria', 'id_kriteria'], 'integer'],
-            [['nama_subkriteria', 'bobot', 'kode'], 'safe'],
+            [['id_subkriteria', 'id_kriteria', 'id_parent_subkriteria', 'is_parent'], 'integer'],
+            [['nama_subkriteria', 'bobot', 'nilai'], 'safe'],
         ];
     }
 
@@ -65,8 +66,13 @@ class SubKriteria extends SubKriteriaModel
 
         $query->andFilterWhere(['like', 'nama_subkriteria', $this->nama_subkriteria])
             ->andFilterWhere(['like', 'bobot', $this->bobot])
-            ->andFilterWhere(['like', 'kode', $this->kode]);
+            ->andFilterWhere(['like', 'nilai', $this->nilai]);
 
         return $dataProvider;
+    }
+
+    public function getParents()
+    {
+        return SubKriteriaModel::find()->where(['id_parent_subkriteria' => '0']);
     }
 }
