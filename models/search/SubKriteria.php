@@ -42,7 +42,39 @@ class SubKriteria extends SubKriteriaModel
     public function search($params, $id)
     {
         $query = SubKriteriaModel::find();
-        $query->where(['id_kriteria' => $id]);
+        $query->where(['id_kriteria' => $id, 'id_parent_subkriteria' => '0']);
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id_subkriteria' => $this->id_subkriteria,
+            'id_kriteria' => $this->id_kriteria,
+        ]);
+
+        $query->andFilterWhere(['like', 'nama_subkriteria', $this->nama_subkriteria])
+            ->andFilterWhere(['like', 'bobot', $this->bobot])
+            ->andFilterWhere(['like', 'nilai', $this->nilai]);
+
+        return $dataProvider;
+    }
+
+    public function searchChild($params, $id)
+    {
+        $query = SubKriteriaModel::find();
+        $query->where(['id_parent_subkriteria' => $id]);
 
         // add conditions that should always apply here
 

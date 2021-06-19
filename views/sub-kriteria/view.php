@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_kriteria',
             'nama_subkriteria',
             'bobot',
-            'kode',
+            'nilai',
         ],
     ]) ?>
 

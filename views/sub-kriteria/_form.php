@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
         ]
     ])->radioList(array('1'=>'Parent',2=>'Child'));?>
 
-    <?= $form->field($model, 'id_parent_subkriteria')->dropDownList($listParent, ['class' => 'hidden form-control']) ?>
+    <?= $form->field($model, 'id_parent_subkriteria')->dropDownList($listParent, ['class' => 'hidden form-control', 'prompt' => '-pilih parent-']) ?>
     <?= $form->field($model, 'nama_subkriteria')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'bobot')->textInput(['maxlength' => true]) ?>
@@ -39,8 +39,7 @@ $this->registerJs(
     "
     $(document).ready(function () {
         var parentSubKriteria = $('.field-subkriteria-id_parent_subkriteria');
-        // parentSubKriteria.addClass('hidden');
-
+        
         if ($('input:radio[name=\"SubKriteria[is_parent]\"]').is(':checked')) {
             if ($('input:radio[name=\"SubKriteria[is_parent]\"]:checked').val() == '2') {
                 parentSubKriteria.removeClass('hidden');
@@ -49,6 +48,8 @@ $this->registerJs(
                 parentSubKriteria.addClass('hidden');
                 $('#subkriteria-id_parent_subkriteria').addClass('hidden');
             }
+        } else {
+            parentSubKriteria.addClass('hidden');
         }
 
         $('input:radio[name=\"SubKriteria[is_parent]\"]').change(function(){

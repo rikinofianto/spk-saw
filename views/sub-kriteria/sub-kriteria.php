@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Sub Kriteria', ['create', 'id_kriteria' => $id_kriteria], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Sub Kriteria', ['create', 'id_kriteria' => $id_subkriteria], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,23 +26,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
-                'attribute' => 'Kriteria',
+                'attribute' => 'Parent',
                 'value' => function($model, $key, $index, $column) {
-                    return $model->kriteria->kriteria;
+                    return $model->parent->nama_subkriteria;
                 } 
             ],
             'nama_subkriteria',
             'bobot',
-            [
-                'format' => 'html',
-                'value' => function($data) {
-                    return Html::a('Kriteria', ['sub-kriteria', 'id_subkriteria' => $data->id_subkriteria]);
-                }
-            ],
-
+            'nilai',
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
-
+    ]);
+    echo Html::a( 'Back', Yii::$app->request->referrer);
+    ?>
 
 </div>

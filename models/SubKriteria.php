@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Kriteria;
 
 /**
  * This is the model class for table "sub_kriteria".
@@ -55,5 +56,15 @@ class SubKriteria extends \yii\db\ActiveRecord
             'bobot' => 'Bobot',
             'nilai' => 'Nilai',
         ];
+    }
+
+    public function getKriteria()
+    {
+        return $this->hasOne(Kriteria::className(), ['id_kriteria' => 'id_kriteria']);
+    }
+
+    public function getParent()
+    {
+        return $this->hasOne(self::className(), ['id_subkriteria' => 'id_parent_subkriteria']);
     }
 }

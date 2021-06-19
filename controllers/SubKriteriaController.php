@@ -42,6 +42,7 @@ class SubKriteriaController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'id_kriteria' => $id
         ]);
     }
 
@@ -63,14 +64,20 @@ class SubKriteriaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id_kriteria)
     {
         $model = new SubKriteria();
         $modelSearch = new SubKriteriaSearch();
         $listParent = ArrayHelper::map($modelSearch->getParents()->asArray()->all(), 'id_subkriteria', 'nama_subkriteria');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_subkriteria]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->id_kriteria = $id_kriteria;
+            if (empty($model->id_parent_subkriteria)) {
+                $model->id_parent_subkriteria = '0';
+            }
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_subkriteria]);
+            }
         }
 
         return $this->render('create', [
@@ -130,5 +137,17 @@ class SubKriteriaController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionSubKriteria($id_subkriteria)
+    {
+        $searchModel = new SubKriteriaSearch();
+        $dataProvider = $searchModel->searchChild(Yii::$app->request->queryParams, $id_subkriteria);
+
+        return $this->render('sub-kriteria', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'id_subkriteria' => $id_subkriteria
+        ]);
     }
 }
