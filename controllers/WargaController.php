@@ -3,7 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\SubKriteria;
+use app\models\Warga;
+use app\models\search\Warga as WargaSearch;
 use app\models\search\SubKriteria as SubKriteriaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -11,9 +12,9 @@ use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 
 /**
- * SubKriteriaController implements the CRUD actions for SubKriteria model.
+ * WargaController implements the CRUD actions for Warga model.
  */
-class SubKriteriaController extends Controller
+class WargaController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,23 +32,23 @@ class SubKriteriaController extends Controller
     }
 
     /**
-     * Lists all SubKriteria models.
+     * Lists all Warga models.
      * @return mixed
      */
     public function actionIndex($id)
     {
-        $searchModel = new SubKriteriaSearch();
+        $searchModel = new WargaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'id_kriteria' => $id
+            'id_kk' => $id
         ]);
     }
 
     /**
-     * Displays a single SubKriteria model.
+     * Displays a single Warga model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -60,34 +61,53 @@ class SubKriteriaController extends Controller
     }
 
     /**
-     * Creates a new SubKriteria model.
+     * Creates a new Warga model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($id_kriteria)
+    public function actionCreate($id_kk)
     {
-        $model = new SubKriteria();
+        $model = new Warga();
         $modelSearch = new SubKriteriaSearch();
         $listParent = ArrayHelper::map($modelSearch->getParents()->asArray()->all(), 'id_subkriteria', 'nama_subkriteria');
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->id_kriteria = $id_kriteria;
-            if (empty($model->id_parent_subkriteria)) {
-                $model->id_parent_subkriteria = '0';
+        if (!empty($listParent)) {
+            $childs = [];
+            foreach ($listParent as $list => $parent) {
+                $childs[$list] = ArrayHelper::map($modelSearch->getChilds($list)->asArray()->all(), 'id_subkriteria', 'nama_subkriteria');
             }
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            print_r('<pre>');
+            $nilai_c1 = $modelSearch->getNilaiById($model->id_c1);
+            $nilai_c2 = $modelSearch->getNilaiById($model->id_c2);
+            $nilai_c3 = $modelSearch->getNilaiById($model->id_c3);
+            $nilai_c4 = $modelSearch->getNilaiById($model->id_c4);
+            $nilai_c5 = $modelSearch->getNilaiById($model->id_c5);
+            $nilai_c6 = $modelSearch->getNilaiById($model->id_c6);
+            $model->id_kk = $id_kk;
+            $model->nilai_c1 = $nilai_c1->nilai;
+            $model->nilai_c2 = $nilai_c2->nilai;
+            $model->nilai_c3 = $nilai_c3->nilai;
+            $model->nilai_c4 = $nilai_c4->nilai;
+            $model->nilai_c5 = $nilai_c5->nilai;
+            $model->nilai_c6 = $nilai_c6->nilai;
+            // var_dump($model);die;
             if ($model->save()) {
-                return $this->redirect(['sub-kriteria', 'id_subkriteria' => $id_kriteria]);
+                return $this->redirect(['view', 'id' => $model->id_warga]);
             }
         }
 
         return $this->render('create', [
             'model' => $model,
-            'listParent' => $listParent
+            'list_kriteria' => $listParent,
+            'list_subkriteria' => $childs
         ]);
     }
 
     /**
-     * Updates an existing SubKriteria model.
+     * Updates an existing Warga model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,21 +116,18 @@ class SubKriteriaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelSearch = new SubKriteriaSearch();
-        $listParent = ArrayHelper::map($modelSearch->getParents()->asArray()->all(), 'id_subkriteria', 'nama_subkriteria');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_subkriteria]);
+            return $this->redirect(['view', 'id' => $model->id_warga]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'listParent' => $listParent
         ]);
     }
 
     /**
-     * Deletes an existing SubKriteria model.
+     * Deletes an existing Warga model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -124,30 +141,18 @@ class SubKriteriaController extends Controller
     }
 
     /**
-     * Finds the SubKriteria model based on its primary key value.
+     * Finds the Warga model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return SubKriteria the loaded model
+     * @return Warga the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = SubKriteria::findOne($id)) !== null) {
+        if (($model = Warga::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    public function actionSubKriteria($id_subkriteria)
-    {
-        $searchModel = new SubKriteriaSearch();
-        $dataProvider = $searchModel->searchChild(Yii::$app->request->queryParams, $id_subkriteria);
-
-        return $this->render('sub-kriteria', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'id_subkriteria' => $id_subkriteria
-        ]);
     }
 }

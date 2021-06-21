@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\search\Kk */
+/* @var $searchModel app\models\search\Warga */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'KK';
+$this->title = 'Wargas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="kk-index">
+<div class="warga-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create KK', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Warga', ['create', 'id_kk' => $id_kk], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -25,14 +25,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'nama_kk',
             [
-                'format' => 'html',
-                'value' => function($data) {
-                    return Html::a('Data Keluarga', ['/warga/index', 'id' => $data->id_kk]);
-                }
+                'attribute' => 'KK',
+                'value' => function($model, $key, $index, $column) {
+                    return $model->kk->nama_kk;
+                } 
             ],
-
+            'nama',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

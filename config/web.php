@@ -79,6 +79,9 @@ $config = [
                 // otherwise you may not even take a first step.
             ]
         ],
+        'perhitunganhelper' => [
+            'class' => 'app\components\PerhitunganHelper'
+        ]
     ],
     'params' => $params,
 ];

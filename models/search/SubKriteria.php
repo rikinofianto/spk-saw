@@ -107,4 +107,16 @@ class SubKriteria extends SubKriteriaModel
     {
         return SubKriteriaModel::find()->where(['id_parent_subkriteria' => '0']);
     }
+
+    public function getChilds($id_parent)
+    {
+        return SubKriteriaModel::find()->where(['id_parent_subkriteria' => $id_parent]);
+    }
+
+    public function getNilaiById($id)
+    {
+        if (!empty($id)) {
+            return SubKriteriaModel::find()->select('nilai')->where(['id_subkriteria' => $id])->one();
+        }
+    }
 }
