@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use app\models\Kk;
+use app\models\SubKriteria;
 
 /**
  * This is the model class for table "warga".
@@ -72,5 +73,35 @@ class Warga extends \yii\db\ActiveRecord
     public function getKk()
     {
         return $this->hasOne(Kk::className(), ['id_kk' => 'id_kk']);
+    }
+
+    public function getSubkriteria1()
+    {
+        return $this->hasOne(SubKriteria::className(), ['id_subkriteria' => 'id_c1']);
+    }
+
+    public function getSubkriteria2()
+    {
+        return $this->hasOne(SubKriteria::className(), ['id_subkriteria' => 'id_c2']);
+    }
+
+    public function getSubkriteria3()
+    {
+        return $this->hasOne(SubKriteria::className(), ['id_subkriteria' => 'id_c3']);
+    }
+
+    public function getSubkriteria4()
+    {
+        return $this->hasOne(SubKriteria::className(), ['id_subkriteria' => 'id_c4']);
+    }
+
+    public function getSubkriteria5()
+    {
+        return $this->hasOne(SubKriteria::className(), ['id_subkriteria' => 'id_c5']);
+    }
+
+    public function getSubkriteria6()
+    {
+        return $this->hasOne(SubKriteria::className(), ['id_subkriteria' => 'id_c6']);
     }
 }

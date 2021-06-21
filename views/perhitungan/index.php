@@ -19,16 +19,51 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="box-body">
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
-                    // 'filterModel' => $searchModel,
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
                         [
                             'attribute' => 'KK',
                             'value' => function($model, $key, $index, $column) {
                                 return $model->kk->nama_kk;
-                            } 
+                            }
                         ],
                         'nama',
+                        [
+                            'attribute' => 'Ibu Hamil',
+                            'value' => function($model, $key, $index, $column) {
+                                return $model->nilai_c1;
+                            }
+                        ],
+                        [
+                            'attribute' => 'Usia Anak',
+                            'value' => function($model, $key, $index, $column) {
+                                return $model->nilai_c2;
+                            }
+                        ],
+                        [
+                            'attribute' => 'Pendidikan',
+                            'value' => function($model, $key, $index, $column) {
+                                return $model->nilai_c3;
+                            }
+                        ],
+                        [
+                            'attribute' => 'Disabilitas',
+                            'value' => function($model, $key, $index, $column) {
+                                return $model->nilai_c4;
+                            }
+                        ],
+                        [
+                            'attribute' => 'Pendapatan',
+                            'value' => function($model, $key, $index, $column) {
+                                return $model->nilai_c5;
+                            }
+                        ],
+                        [
+                            'attribute' => 'Lanjut Usia',
+                            'value' => function($model, $key, $index, $column) {
+                                return $model->nilai_c6;
+                            }
+                        ],
                     ],
                 ]); ?>
             </div>
@@ -36,128 +71,47 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Bordered Table</h3>
+                <h3 class="box-title">Normalisasi</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <table class="table table-bordered">
-                <tbody><tr>
-                    <th style="width: 10px">#</th>
-                    <th>Task</th>
-                    <th>Progress</th>
-                    <th style="width: 40px">Label</th>
-                </tr>
-                <tr>
-                    <td>1.</td>
-                    <td>Update software</td>
-                    <td>
-                    <div class="progress progress-xs">
-                        <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                    </div>
-                    </td>
-                    <td><span class="badge bg-red">55%</span></td>
-                </tr>
-                <tr>
-                    <td>2.</td>
-                    <td>Clean database</td>
-                    <td>
-                    <div class="progress progress-xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                    </div>
-                    </td>
-                    <td><span class="badge bg-yellow">70%</span></td>
-                </tr>
-                <tr>
-                    <td>3.</td>
-                    <td>Cron job running</td>
-                    <td>
-                    <div class="progress progress-xs progress-striped active">
-                        <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                    </div>
-                    </td>
-                    <td><span class="badge bg-light-blue">30%</span></td>
-                </tr>
-                <tr>
-                    <td>4.</td>
-                    <td>Fix and squish bugs</td>
-                    <td>
-                    <div class="progress progress-xs progress-striped active">
-                        <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                    </div>
-                    </td>
-                    <td><span class="badge bg-green">90%</span></td>
-                </tr>
-                </tbody></table>
+                <?= GridView::widget([
+                    'dataProvider' => $dataProviderNormalisasi,
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        'kk',
+                        'nama',
+                        'c1',
+                        'c2',
+                        'c3',
+                        'c4',
+                        'c5',
+                        'c6'
+                    ],
+                ]); ?>
             </div>
             <!-- /.box-body -->
-            <div class="box-footer clearfix">
-                <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">«</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">»</a></li>
-                </ul>
-            </div>
         </div>
         <!-- /.box -->
 
         <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Condensed Full Width Table</h3>
+            <div class="box-header with-border">
+                <h3 class="box-title">Perangkingan</h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body no-padding">
-                <table class="table table-condensed">
-                <tbody><tr>
-                    <th style="width: 10px">#</th>
-                    <th>Task</th>
-                    <th>Progress</th>
-                    <th style="width: 40px">Label</th>
-                </tr>
-                <tr>
-                    <td>1.</td>
-                    <td>Update software</td>
-                    <td>
-                    <div class="progress progress-xs">
-                        <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                    </div>
-                    </td>
-                    <td><span class="badge bg-red">55%</span></td>
-                </tr>
-                <tr>
-                    <td>2.</td>
-                    <td>Clean database</td>
-                    <td>
-                    <div class="progress progress-xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                    </div>
-                    </td>
-                    <td><span class="badge bg-yellow">70%</span></td>
-                </tr>
-                <tr>
-                    <td>3.</td>
-                    <td>Cron job running</td>
-                    <td>
-                    <div class="progress progress-xs progress-striped active">
-                        <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                    </div>
-                    </td>
-                    <td><span class="badge bg-light-blue">30%</span></td>
-                </tr>
-                <tr>
-                    <td>4.</td>
-                    <td>Fix and squish bugs</td>
-                    <td>
-                    <div class="progress progress-xs progress-striped active">
-                        <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                    </div>
-                    </td>
-                    <td><span class="badge bg-green">90%</span></td>
-                </tr>
-                </tbody></table>
+            <div class="box-body">
+                <?= GridView::widget([
+                    'dataProvider' => $dataProvideRangking,
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        'kk',
+                        'nama',
+                        'total',
+                        'peringkat'
+                    ],
+                ]); ?>
             </div>
-        <!-- /.box-body -->
+            <!-- /.box-body -->
         </div>
         <!-- /.box -->
     </div>
