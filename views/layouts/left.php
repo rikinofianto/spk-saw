@@ -42,6 +42,7 @@
                         ]
                     ],
                     ['label' => 'Perhitungan', 'icon' => 'calculator', 'url' => ['/perhitungan/index'],],
+                    ['label' => 'Penilaian', 'icon' => 'check-square-o', 'url' => ['/penilaian/index'],],
                     /*['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
