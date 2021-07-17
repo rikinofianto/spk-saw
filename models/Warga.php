@@ -3,14 +3,12 @@
 namespace app\models;
 
 use Yii;
-use app\models\Kk;
-use app\models\SubKriteria;
 
 /**
  * This is the model class for table "warga".
  *
  * @property int $id_warga
- * @property int|null $id_kk
+ * @property string|null $jenis_kelamin
  * @property string|null $nama
  * @property int|null $id_c1
  * @property int|null $id_c2
@@ -41,7 +39,9 @@ class Warga extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_kk', 'id_c1', 'id_c2', 'id_c3', 'id_c4', 'id_c5', 'id_c6', 'nilai_c1', 'nilai_c2', 'nilai_c3', 'nilai_c4', 'nilai_c5', 'nilai_c6'], 'integer'],
+            [['jenis_kelamin'], 'string'],
+            [['id_c1', 'id_c2', 'id_c3', 'id_c4', 'id_c5', 'id_c6', 'nilai_c1', 'nilai_c2', 'nilai_c3', 'nilai_c4', 'nilai_c5', 'nilai_c6'], 'integer'],
+            [['nama', 'jenis_kelamin','id_c1', 'id_c2', 'id_c3', 'id_c4', 'id_c5', 'id_c6'], 'required'],
             [['nama'], 'string', 'max' => 100],
         ];
     }
@@ -53,7 +53,7 @@ class Warga extends \yii\db\ActiveRecord
     {
         return [
             'id_warga' => 'Id Warga',
-            'id_kk' => 'Id Kk',
+            'jenis_kelamin' => 'Jenis Kelamin',
             'nama' => 'Nama',
             'id_c1' => 'Id C1',
             'id_c2' => 'Id C2',
@@ -68,11 +68,6 @@ class Warga extends \yii\db\ActiveRecord
             'nilai_c5' => 'Nilai C5',
             'nilai_c6' => 'Nilai C6',
         ];
-    }
-
-    public function getKk()
-    {
-        return $this->hasOne(Kk::className(), ['id_kk' => 'id_kk']);
     }
 
     public function getSubkriteria1()

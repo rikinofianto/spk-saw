@@ -23,8 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvideRangking,
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
-                        'kk',
                         'nama',
+                        'jenis_kelamin',
                         'total',
                         'peringkat'
                     ],

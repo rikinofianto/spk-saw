@@ -35,15 +35,14 @@ class WargaController extends Controller
      * Lists all Warga models.
      * @return mixed
      */
-    public function actionIndex($id)
+    public function actionIndex()
     {
         $searchModel = new WargaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'id_kk' => $id
+            'dataProvider' => $dataProvider
         ]);
     }
 
@@ -65,7 +64,7 @@ class WargaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($id_kk)
+    public function actionCreate()
     {
         $model = new Warga();
         $modelSearch = new SubKriteriaSearch();
@@ -86,7 +85,6 @@ class WargaController extends Controller
             $nilai_c4 = $modelSearch->getNilaiById($model->id_c4);
             $nilai_c5 = $modelSearch->getNilaiById($model->id_c5);
             $nilai_c6 = $modelSearch->getNilaiById($model->id_c6);
-            $model->id_kk = $id_kk;
             $model->nilai_c1 = $nilai_c1->nilai;
             $model->nilai_c2 = $nilai_c2->nilai;
             $model->nilai_c3 = $nilai_c3->nilai;
@@ -116,13 +114,41 @@ class WargaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelSearch = new SubKriteriaSearch();
+        $listParent = ArrayHelper::map($modelSearch->getParents()->asArray()->all(), 'id_subkriteria', 'nama_subkriteria');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (!empty($listParent)) {
+            $childs = [];
+            foreach ($listParent as $list => $parent) {
+                $childs[$list] = ArrayHelper::map($modelSearch->getChilds($list)->asArray()->all(), 'id_subkriteria', 'nama_subkriteria');
+            }
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            print_r('<pre>');
+            $nilai_c1 = $modelSearch->getNilaiById($model->id_c1);
+            $nilai_c2 = $modelSearch->getNilaiById($model->id_c2);
+            $nilai_c3 = $modelSearch->getNilaiById($model->id_c3);
+            $nilai_c4 = $modelSearch->getNilaiById($model->id_c4);
+            $nilai_c5 = $modelSearch->getNilaiById($model->id_c5);
+            $nilai_c6 = $modelSearch->getNilaiById($model->id_c6);
+            $model->nilai_c1 = $nilai_c1->nilai;
+            $model->nilai_c2 = $nilai_c2->nilai;
+            $model->nilai_c3 = $nilai_c3->nilai;
+            $model->nilai_c4 = $nilai_c4->nilai;
+            $model->nilai_c5 = $nilai_c5->nilai;
+            $model->nilai_c6 = $nilai_c6->nilai;
+            // var_dump($model);die;
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_warga]);
+            }
             return $this->redirect(['view', 'id' => $model->id_warga]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'list_kriteria' => $listParent,
+            'list_subkriteria' => $childs
         ]);
     }
 

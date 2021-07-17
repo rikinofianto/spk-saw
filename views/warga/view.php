@@ -30,14 +30,32 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id_warga',
-            'id_kk',
             'nama',
-            'id_c1',
-            'id_c2',
-            'id_c3',
-            'id_c4',
-            'id_c5',
-            'id_c6',
+            'jenis_kelamin',
+            [
+                'label' => $model->subkriteria1->parent->nama_subkriteria,
+                'value' => $model->subkriteria1->nama_subkriteria
+            ],
+            [
+                'label' => $model->subkriteria2->parent->nama_subkriteria,
+                'value' => $model->subkriteria2->nama_subkriteria
+            ],
+            [
+                'label' => $model->subkriteria3->parent->nama_subkriteria,
+                'value' => $model->subkriteria3->nama_subkriteria
+            ],
+            [
+                'label' => $model->subkriteria4->parent->nama_subkriteria,
+                'value' => $model->subkriteria4->nama_subkriteria
+            ],
+            [
+                'label' => $model->subkriteria5->parent->nama_subkriteria,
+                'value' => $model->subkriteria5->nama_subkriteria
+            ],
+            [
+                'label' => $model->subkriteria6->parent->nama_subkriteria,
+                'value' => $model->subkriteria6->nama_subkriteria
+            ],
         ],
     ]) ?>
 

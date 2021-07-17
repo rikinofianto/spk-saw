@@ -34,10 +34,10 @@ class PerhitunganHelper extends Component
         $kriteria6 = '';
 
         $nama = [];
-        $kk = [];
+        $jk = [];
         foreach ($model as $data => $warga) {
             $nama[] = $warga->nama;
-            $kk[] = $warga->kk->nama_kk;
+            $jk[] = $warga->jenis_kelamin;
             $jenis1 = $warga->subkriteria1->parent->kriteria->jenis;
             $jenis2 = $warga->subkriteria2->parent->kriteria->jenis;
             $jenis3 = $warga->subkriteria3->parent->kriteria->jenis;
@@ -109,7 +109,7 @@ class PerhitunganHelper extends Component
         }
 
         $data_normalisasi = [
-            'kk' => $kk,
+            'jenis_kelamin' => $jk,
             'nama' => $nama,
             'c1' => $normalisasi1,
             'c2' => $normalisasi2,
@@ -158,7 +158,7 @@ class PerhitunganHelper extends Component
             foreach($kolom as $k => $data) {
                 $new_data = [];
                 if (!empty($data)) {
-                    $new_data['kk'] = $data[0];
+                    $new_data['jenis_kelamin'] = $data[0];
                     $new_data['nama'] = $data[1];
                     $new_data['c1'] = $data[2];
                     $new_data['c2'] = $data[3];
@@ -188,7 +188,7 @@ class PerhitunganHelper extends Component
     {
         $kriteria = SubKriteria::find()->where(['id_parent_subkriteria' => '0'])->all();
         if (!empty($normalisasi)) {
-            unset($normalisasi['kk']);
+            unset($normalisasi['jenis_kelamin']);
             unset($normalisasi['nama']);
 
             $i = 0;
@@ -226,7 +226,7 @@ class PerhitunganHelper extends Component
             foreach($kolom as $k => $data) {
                 $new_data = [];
                 if (!empty($data)) {
-                    $new_data['kk'] = $data[0];
+                    $new_data['jenis_kelamin'] = $data[0];
                     $new_data['nama'] = $data[1];
                     $new_data['c1'] = $data[2];
                     $new_data['c2'] = $data[3];

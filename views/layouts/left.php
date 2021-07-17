@@ -37,7 +37,7 @@
                         'icon' => 'bars',
                         'url' => ['#'],
                         'items' => [
-                            ['label' => 'KK', 'icon' => 'users', 'url' => ['/kk/index'],],
+                            ['label' => 'Warga', 'icon' => 'users', 'url' => ['/warga/index'],],
                             ['label' => 'Kriteria', 'icon' => 'server', 'url' => ['/kriteria/index'],],
                         ]
                     ],

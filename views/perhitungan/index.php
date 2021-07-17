@@ -21,13 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvider,
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
-                        [
-                            'attribute' => 'KK',
-                            'value' => function($model, $key, $index, $column) {
-                                return $model->kk->nama_kk;
-                            }
-                        ],
                         'nama',
+                        'jenis_kelamin',
                         [
                             'attribute' => 'Ibu Hamil',
                             'value' => function($model, $key, $index, $column) {
@@ -79,8 +74,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProviderNormalisasi,
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
-                        'kk',
                         'nama',
+                        'jenis_kelamin',
                         'c1',
                         'c2',
                         'c3',
@@ -104,8 +99,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvideRangking,
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
-                        'kk',
                         'nama',
+                        'jenis_kelamin',
                         'total',
                         'peringkat'
                     ],

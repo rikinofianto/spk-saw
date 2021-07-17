@@ -17,8 +17,8 @@ class Warga extends WargaModel
     public function rules()
     {
         return [
-            [['id_warga', 'id_kk', 'id_c1', 'id_c2', 'id_c3', 'id_c4', 'id_c5', 'id_c6', 'nilai_c1', 'nilai_c2', 'nilai_c3', 'nilai_c4', 'nilai_c5', 'nilai_c6'], 'integer'],
-            [['nama'], 'safe'],
+            [['id_warga', 'id_c1', 'id_c2', 'id_c3', 'id_c4', 'id_c5', 'id_c6', 'nilai_c1', 'nilai_c2', 'nilai_c3', 'nilai_c4', 'nilai_c5', 'nilai_c6'], 'integer'],
+            [['nama', 'jenis_kelamin'], 'safe'],
         ];
     }
 
@@ -38,10 +38,9 @@ class Warga extends WargaModel
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $id)
+    public function search($params)
     {
         $query = WargaModel::find();
-        $query->where(['id_kk' => $id]);
 
         // add conditions that should always apply here
 
@@ -60,7 +59,6 @@ class Warga extends WargaModel
         // grid filtering conditions
         $query->andFilterWhere([
             'id_warga' => $this->id_warga,
-            'id_kk' => $this->id_kk,
             'id_c1' => $this->id_c1,
             'id_c2' => $this->id_c2,
             'id_c3' => $this->id_c3,
@@ -76,6 +74,7 @@ class Warga extends WargaModel
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama]);
+        $query->andFilterWhere(['like', 'jenis_kelamin', $this->jenis_kelamin]);
 
         return $dataProvider;
     }
@@ -101,7 +100,6 @@ class Warga extends WargaModel
         // grid filtering conditions
         $query->andFilterWhere([
             'id_warga' => $this->id_warga,
-            'id_kk' => $this->id_kk,
             'id_c1' => $this->id_c1,
             'id_c2' => $this->id_c2,
             'id_c3' => $this->id_c3,
@@ -117,6 +115,7 @@ class Warga extends WargaModel
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama]);
+        $query->andFilterWhere(['like', 'jenis_kelamin', $this->jenis_kelamin]);
 
         return $dataProvider;
     }
