@@ -15,7 +15,8 @@ $config = [
         'admin' => [
             'class' => 'mdm\admin\Module',
             'layout' => 'left-menu',
-        ]
+        ],
+        'gridview' => ['class' => 'kartik\grid\Module']
     ],
     'components' => [
         'view' => [
