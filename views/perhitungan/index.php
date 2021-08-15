@@ -48,13 +48,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             }
                         ],
                         [
-                            'attribute' => 'Pendapatan',
+                            'attribute' => 'Lanjut Usia',
                             'value' => function($model, $key, $index, $column) {
                                 return $model->nilai_c5;
                             }
                         ],
                         [
-                            'attribute' => 'Lanjut Usia',
+                            'attribute' => 'Pendapatan',
                             'value' => function($model, $key, $index, $column) {
                                 return $model->nilai_c6;
                             }
@@ -76,12 +76,42 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['class' => 'yii\grid\SerialColumn'],
                         'nama',
                         'jenis_kelamin',
-                        'c1',
-                        'c2',
-                        'c3',
-                        'c4',
-                        'c5',
-                        'c6'
+                        [
+                            'attribute' => 'Ibu Hamil',
+                            'value' => function($model, $key, $index, $column) {
+                                return $model['c1'];
+                            }
+                        ],
+                        [
+                            'attribute' => 'Usia Anak',
+                            'value' => function($model, $key, $index, $column) {
+                                return $model['c2'];
+                            }
+                        ],
+                        [
+                            'attribute' => 'Pendidikan',
+                            'value' => function($model, $key, $index, $column) {
+                                return $model['c3'];
+                            }
+                        ],
+                        [
+                            'attribute' => 'Disabilitas',
+                            'value' => function($model, $key, $index, $column) {
+                                return $model['c4'];
+                            }
+                        ],
+                        [
+                            'attribute' => 'Lanjut Usia',
+                            'value' => function($model, $key, $index, $column) {
+                                return $model['c5'];
+                            }
+                        ],
+                        [
+                            'attribute' => 'Pendapatan',
+                            'value' => function($model, $key, $index, $column) {
+                                return $model['c6'];
+                            }
+                        ]
                     ],
                 ]); ?>
             </div>
