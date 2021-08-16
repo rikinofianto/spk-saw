@@ -143,16 +143,10 @@ class PerhitunganHelper extends Component
     public function dataNormalisasi($normalisasi)
     {
         if (!empty($normalisasi)) {
-            $kolom = [
-                array_column($normalisasi, 0),
-                array_column($normalisasi, 1),
-                array_column($normalisasi, 2),
-                array_column($normalisasi, 3),
-                array_column($normalisasi, 4),
-                array_column($normalisasi, 5),
-                array_column($normalisasi, 6),
-                array_column($normalisasi, 7)
-            ];
+            $kolom = [];
+            foreach ($normalisasi['nama'] as $index => $nama) {
+                $kolom[] = array_column($normalisasi, $index);
+            }
 
             $final_data = [];
             foreach($kolom as $k => $data) {
@@ -210,19 +204,12 @@ class PerhitunganHelper extends Component
     public function dataRangking($rangking)
     {
         if (!empty($rangking)) {
-            $kolom = [
-                array_column($rangking, 0),
-                array_column($rangking, 1),
-                array_column($rangking, 2),
-                array_column($rangking, 3),
-                array_column($rangking, 4),
-                array_column($rangking, 5),
-                array_column($rangking, 6),
-                array_column($rangking, 7)
-            ];
+            $kolom = [];
+            foreach ($rangking['nama'] as $index => $nama) {
+                $kolom[] = array_column($rangking, $index);
+            }
 
             $final_data = [];
-
             foreach($kolom as $k => $data) {
                 $new_data = [];
                 if (!empty($data)) {
